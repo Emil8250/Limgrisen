@@ -9,6 +9,14 @@ class AlreadyExistsError extends Error {
     }
 }
 
+async function exportCTF(guild) {
+
+    const categoryChannels = guild.channels.filter(channel => channel.type === 4);
+    categoryChannels.forEach(channel => {
+        console.log(`Category ${channel.name} has ${channel.children.size} channels`);
+    });
+}
+
 async function getCategory(guild, name) {
     let channel = guild.channels.cache.find((c) => c.name === name);
     if (typeof channel !== "undefined") return channel;
@@ -70,4 +78,4 @@ async function markChallengeAsDone(guild, channelId) {
     return true;
 }
 
-module.exports = { createCTF, getCtfNameFromChannelId, createChallenge, markChallengeAsDone, AlreadyExistsError }
+module.exports = { createCTF, getCtfNameFromChannelId, createChallenge, markChallengeAsDone, AlreadyExistsError, exportCTF }
